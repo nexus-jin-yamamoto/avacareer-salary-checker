@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>診断する｜想定年収チェッカー</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--sky:#eaf4fd;--blue:#1268d8;--navy:#0d2b52;--gold:#f2b32a;--ink:#12263f;--mut:#5c7392}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Zen Kaku Gothic New',sans-serif;color:var(--ink);background:radial-gradient(900px 500px at 85% -10%,#d5e9fc,transparent),radial-gradient(700px 400px at -10% 30%,#fdf3d9,transparent),var(--sky);min-height:100vh}
+  header{display:flex;justify-content:space-between;align-items:center;padding:20px 32px;max-width:900px;margin:0 auto}
+  .logo{font-weight:900;color:var(--navy)}
+  .logo a{text-decoration:none;color:inherit}
+  .logo i{font-style:normal;color:var(--blue)}
+  header .reg{background:var(--navy);color:#fff;text-decoration:none;font-size:13px;font-weight:700;padding:10px 20px;border-radius:99px}
+  main{max-width:620px;margin:0 auto;padding:40px 24px 90px}
+  h1{font-size:26px;font-weight:900;color:var(--navy);text-align:center}
+  .sub{text-align:center;color:var(--mut);font-size:13.5px;margin:10px 0 30px;line-height:2}
+  .panel{background:#fff;border-radius:20px;box-shadow:0 24px 60px rgba(13,43,82,.14);padding:32px 30px;border:1px solid #e3eefb}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:7px}
+  .field input,.field select{width:100%;border:1.5px solid #d7e3f2;border-radius:10px;padding:13px 15px;font-size:14px;font-family:inherit;background:#fbfdff;color:var(--ink)}
+  .field input:focus,.field select:focus{outline:2px solid var(--blue)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .go{width:100%;margin-top:8px;background:linear-gradient(120deg,var(--blue),#2f8de8);color:#fff;font-weight:900;font-size:16px;border:none;border-radius:12px;padding:17px;cursor:pointer;font-family:inherit;box-shadow:0 12px 28px rgba(18,104,216,.35)}
+  .go:hover{transform:translateY(-2px)}
+  #loading{display:none;text-align:center;padding:60px 0;color:var(--mut);font-weight:700}
+  .spin{width:44px;height:44px;border:4px solid #d7e6f8;border-top-color:var(--blue);border-radius:50%;margin:0 auto 18px;animation:sp 1s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  #result{display:none}
+  .rcard{background:linear-gradient(135deg,var(--navy),#123a70);border-radius:22px;color:#fff;padding:38px 34px}
+  .cap{font-size:12.5px;color:#9db8dd;font-weight:700;letter-spacing:.1em}
+  .v{font-family:'Outfit';font-size:64px;font-weight:800;color:var(--gold);text-shadow:0 6px 30px rgba(242,179,42,.35);line-height:1.15}
+  .v small{font-size:.42em;color:#e8d29a}
+  .diff{margin-top:6px;font-size:14px;font-weight:700;color:#7fe3a8}
+  .bars{display:grid;gap:14px;margin-top:26px;border-top:1px solid #21406f;padding-top:24px}
+  .bar .t{display:flex;justify-content:space-between;font-size:12.5px;color:#b9cbe6;margin-bottom:6px}
+  .tr{height:10px;background:#0b2246;border-radius:99px;overflow:hidden}
+  .tr i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#3aa0f0,var(--gold));transition:width 1.4s ease}
+  .cta{margin-top:26px;background:#fff;border-radius:20px;border:1px solid #e3eefb;padding:30px;text-align:center;box-shadow:0 16px 40px rgba(13,43,82,.1)}
+  .cta h2{font-size:19px;font-weight:900;color:var(--navy);line-height:1.7}
+  .cta p{color:var(--mut);font-size:13.5px;line-height:2;margin:10px 0 20px}
+  .cta a{display:inline-block;background:var(--gold);color:#4a3305;text-decoration:none;font-weight:900;font-size:15.5px;padding:16px 38px;border-radius:99px;box-shadow:0 12px 28px rgba(242,179,42,.4)}
+  .again{display:block;text-align:center;margin-top:18px;color:var(--mut);font-size:12px;cursor:pointer;text-decoration:underline}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><a href="/">AVA<i>CAREER</i></a> <span style="font-weight:500;color:#5c7392;font-size:13px">想定年収チェッカー</span></div>
+  <a class="reg" href="/register/">無料登録</a>
+</header>
+<main>
+  <h1>あなたの理論年収を診断</h1>
+  <p class="sub">4項目に答えるだけ。最新の市場データ×AIが60秒で算出します。</p>
+
+  <div class="panel" id="form">
+    <div class="row2">
+      <div class="field"><label>現在の職種</label>
+        <select id="job"><option value="1.14">法人営業</option><option value="1.22">ITエンジニア</option><option value="1.12">Webマーケター</option><option value="1.05">事務・バックオフィス</option><option value="1.10">販売・サービス</option><option value="1.18">企画・コンサル</option></select></div>
+      <div class="field"><label>経験年数</label>
+        <select id="exp"><option value="0.95">1〜2年</option><option value="1.06" selected>3〜5年</option><option value="1.15">6〜9年</option><option value="1.22">10年以上</option></select></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>現在の年収（万円）</label><input id="cur" type="number" placeholder="例）420"></div>
+      <div class="field"><label>年齢</label><input id="age" type="number" placeholder="例）27"></div>
+    </div>
+    <button class="go" onclick="calc()">理論年収を診断する →</button>
+  </div>
+
+  <div id="loading"><div class="spin"></div>市場データと照合中…</div>
+
+  <div id="result">
+    <div class="rcard">
+      <div class="cap">あなたの理論年収</div>
+      <div class="v"><span id="val">0</span><small>万円</small></div>
+      <div class="diff" id="diff"></div>
+      <div class="bars">
+        <div class="bar"><div class="t"><span>スキル市場価値</span><span id="s1t"></span></div><div class="tr"><i id="s1"></i></div></div>
+        <div class="bar"><div class="t"><span>経験業界の需要</span><span id="s2t"></span></div><div class="tr"><i id="s2"></i></div></div>
+        <div class="bar"><div class="t"><span>キャリアの伸びしろ</span><span id="s3t"></span></div><div class="tr"><i id="s3"></i></div></div>
+      </div>
+    </div>
+    <div class="cta">
+      <h2 id="ctah">その差額、「知ってるだけ」で終わらせない。</h2>
+      <p>AVACAREERなら、あなたの理論年収を実際に出す企業をAIアバターが探して交渉まで代行します。</p>
+      <a href="/register/">無料登録して理論年収の求人を見る</a>
+    </div>
+    <span class="again" onclick="location.reload()">条件を変えて診断し直す</span>
+  </div>
+</main>
+<script>
+function calc(){
+  const cur=+document.getElementById('cur').value||400;
+  const age=+document.getElementById('age').value||28;
+  const j=+document.getElementById('job').value, e=+document.getElementById('exp').value;
+  document.getElementById('form').style.display='none';
+  document.getElementById('loading').style.display='block';
+  setTimeout(()=>{
+    const agef=age<=32?1.08:age<=39?1.03:0.98;
+    let est=Math.round(cur*j*e*agef/2)*2;
+    est=Math.max(est,cur+20);
+    const diff=est-cur;
+    document.getElementById('loading').style.display='none';
+    document.getElementById('result').style.display='block';
+    document.getElementById('diff').textContent="▲ 現年収より +"+diff+"万円 のポテンシャル";
+    const s=[Math.min(95,Math.round(60+j*20)),Math.min(92,Math.round(55+e*15)),Math.min(90,Math.round(96-(age-24)*1.4))];
+    ["s1","s2","s3"].forEach((id,i)=>{document.getElementById(id+"t").textContent=s[i]+" / 100";
+      setTimeout(()=>document.getElementById(id).style.width=s[i]+"%",200)});
+    let c=0;const t=setInterval(()=>{c+=Math.ceil(est/50);if(c>=est){c=est;clearInterval(t)}document.getElementById('val').textContent=c},30);
+  },1800);
+}
+</script>
+</body>
+</html>
