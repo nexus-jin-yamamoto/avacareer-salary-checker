@@ -68,6 +68,38 @@
   .file-name{font-size:14px;font-weight:700;color:var(--navy)}
   .file-remove{color:var(--mut);cursor:pointer;font-size:16px;padding:4px 8px}
   .file-remove:hover{color:var(--blue)}
+  .cta-bridge{text-align:center;margin-bottom:40px}
+  .cta-bridge h2{font-size:clamp(22px,3.6vw,32px);font-weight:900;color:var(--navy);line-height:1.7}
+  .cta-bridge p{color:var(--mut);font-size:15px;line-height:2.1;margin-top:14px}
+  .cta-problem{background:var(--card);border:1px solid #e3eefb;border-radius:16px;padding:32px 28px;margin-bottom:36px}
+  .cta-problem h3{font-size:14px;font-weight:900;color:var(--navy);margin-bottom:16px}
+  .cta-problem ul{list-style:none;display:grid;gap:10px}
+  .cta-problem li{font-size:14px;color:var(--mut);line-height:1.8;padding-left:20px;position:relative}
+  .cta-problem li::before{content:"×";position:absolute;left:0;color:#e05252;font-weight:700}
+  .cta-solution{background:var(--card);border:1px solid #e3eefb;border-radius:16px;padding:36px 28px;margin-bottom:36px}
+  .cta-solution h3{font-size:clamp(18px,2.8vw,24px);font-weight:900;color:var(--navy);text-align:center;margin-bottom:6px}
+  .cta-solution .sol-sub{text-align:center;color:var(--mut);font-size:13px;margin-bottom:28px}
+  .cta-flow{display:grid;gap:0;position:relative;padding-left:20px;border-left:2px solid #d7e6f8}
+  .cta-step{display:flex;gap:14px;align-items:flex-start;padding:12px 0}
+  .step-n{width:32px;height:32px;border-radius:50%;background:var(--blue);color:#fff;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex:none;margin-left:-37px}
+  .cta-step strong{display:block;font-size:15px;color:var(--navy);margin-bottom:3px}
+  .cta-step p{font-size:13px;color:var(--mut);line-height:1.8;margin:0}
+  .cta-line-box{text-align:center;background:var(--card);border:2px solid #06C755;border-radius:16px;padding:40px 28px;margin-bottom:24px}
+  .cta-line-box h3{font-size:clamp(17px,2.6vw,22px);font-weight:900;color:var(--navy);line-height:1.7;margin-bottom:8px}
+  .cta-line-box .line-desc{color:var(--mut);font-size:13px;line-height:2;margin-bottom:24px}
+  .cta-line-btn{display:inline-flex;align-items:center;gap:10px;background:#06C755;color:#fff;text-decoration:none;font-weight:900;font-size:16px;padding:18px 44px;border-radius:99px;letter-spacing:.04em;transition:.2s;box-shadow:0 6px 24px rgba(6,199,85,.3)}
+  .cta-line-btn:hover{background:#05b34c;transform:translateY(-2px);box-shadow:0 10px 32px rgba(6,199,85,.4)}
+  .cta-line-btn svg{flex:none}
+  .cta-notes{display:flex;justify-content:center;gap:18px;margin-top:16px;flex-wrap:wrap}
+  .cta-notes span{font-size:12px;color:#9ab0c9}
+  .cta-reassure{margin-top:12px;font-size:11.5px;color:#9ab0c9;text-align:center}
+  .cta-faq{margin-top:36px}
+  .cta-faq h3{font-size:14px;font-weight:900;color:var(--navy);margin-bottom:16px;text-align:center}
+  .cta-faq dl{display:grid;gap:14px;max-width:600px;margin:0 auto}
+  .cta-faq dt{font-size:14px;color:var(--navy);font-weight:700}
+  .cta-faq dt::before{content:"Q. ";color:var(--blue)}
+  .cta-faq dd{font-size:13px;color:var(--mut);line-height:1.9;margin:3px 0 0;padding-left:22px}
+  .cta-faq dd::before{content:"A. ";color:var(--mut);font-weight:700;margin-left:-22px}
   footer{text-align:center;padding:28px;color:#9ab0c9;font-size:11.5px}
   @media(max-width:900px){.hero{grid-template-columns:1fr}.rcard{grid-template-columns:1fr;gap:30px}}
 </style>
@@ -75,7 +107,7 @@
 <body>
 <header>
   <div class="logo">AVA<i>CAREER</i> <span style="font-weight:500;color:#5c7392;font-size:13px">想定年収チェッカー</span></div>
-  <a class="hbtn" href="#cta">無料登録</a>
+  <a class="hbtn" href="#cta">LINE相談</a>
 </header>
 
 <section class="hero">
@@ -174,10 +206,61 @@
 </section>
 
 <section class="cta" id="cta">
-  <h2>その +108万円、<br>「知ってるだけ」で終わらせない。</h2>
-  <p>AVACAREERに登録すると、あなたの理論年収を"実際に出す企業"をAIアバターが探して交渉の場までセッティング。市場価値を、年収に変えよう。</p>
-  <a class="cta-btn" href="/register/">無料登録して理論年収の求人を見る</a>
-  <small>登録60秒 / 診断結果はそのままプロフィールに反映されます</small>
+  <div class="cta-bridge">
+    <h2>あなたの市場価値、<br><span class="g">年収に反映</span>させませんか？</h2>
+    <p>理論年収を知っただけでは、給与は1円も変わりません。<br>大事なのは「その年収を実際に出す企業」に出会うことです。</p>
+  </div>
+
+  <div class="cta-problem">
+    <h3>こんな状況に心当たりは？</h3>
+    <ul>
+      <li>今の年収が市場価値より低い気がするけど、交渉できない</li>
+      <li>転職サイトを見ても、年収レンジが広すぎて実態が分からない</li>
+      <li>エージェントに相談したら、希望年収を下げるよう言われた</li>
+      <li>自分のスキルがいくらで評価されるのか客観的に分からない</li>
+      <li>年収交渉のやり方が分からず、提示額をそのまま受け入れてしまう</li>
+    </ul>
+  </div>
+
+  <div class="cta-solution">
+    <h3>理論年収を「現実の年収」に変える方法</h3>
+    <p class="sol-sub">AVACAREER — AI×AI採用プラットフォーム</p>
+    <div class="cta-flow">
+      <div class="cta-step"><span class="step-n">1</span><div><strong>LINEで友だち追加（30秒）</strong><p>アプリDL不要。いつものLINEから始められます。</p></div></div>
+      <div class="cta-step"><span class="step-n">2</span><div><strong>AIが理論年収をもとに求人を厳選</strong><p>あなたの市場価値に見合った年収を実際に提示できる企業だけをピックアップ。</p></div></div>
+      <div class="cta-step"><span class="step-n">3</span><div><strong>AIアバターが企業に条件交渉</strong><p>あなたの代わりにAIが年収交渉。希望条件を遠慮なく企業に伝えます。</p></div></div>
+      <div class="cta-step"><span class="step-n">4</span><div><strong>納得できる年収のオファーだけ届く</strong><p>妥協した転職にならないよう、あなたの基準を下回る求人は紹介しません。</p></div></div>
+    </div>
+  </div>
+
+  <div class="cta-line-box">
+    <h3>年収を上げたいなら、<br>まずはLINEで市場価値を相談してみませんか？</h3>
+    <p class="line-desc">「今すぐ転職したい」でも「いい条件があれば考えたい」でもOK。<br>AIがあなたの市場価値に合った求人だけをご紹介します。</p>
+    <a class="cta-line-btn" href="https://lin.ee/XXXXXX" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M12 2C6.48 2 2 5.83 2 10.5c0 4.18 3.58 7.68 8.44 8.37.33.07.78.22.89.5.1.26.07.66.03.92l-.14.87c-.04.26-.2 1.02.89.56.58-.25 3.13-1.84 4.27-3.15C19.32 15.92 22 13.42 22 10.5 22 5.83 17.52 2 12 2z"/></svg>
+      LINEで年収アップ相談をはじめる（無料）
+    </a>
+    <div class="cta-notes">
+      <span>✓ 完全無料（求職者に費用は一切かかりません）</span>
+      <span>✓ 1タップで友だち追加</span>
+      <span>✓ いつでもブロックOK</span>
+    </div>
+    <p class="cta-reassure">※ 有料職業紹介事業（許可番号準備中）/ 個人情報は厳重に管理し第三者に提供しません</p>
+  </div>
+
+  <div class="cta-faq">
+    <h3>よくある質問</h3>
+    <dl>
+      <dt>本当に無料ですか？</dt>
+      <dd>はい。企業側から紹介手数料をいただく仕組みのため、求職者に費用は一切かかりません。</dd>
+      <dt>今すぐ転職する気がなくても使えますか？</dt>
+      <dd>もちろんです。「いい条件があれば話を聞きたい」という方も多くご利用いただいています。</dd>
+      <dt>しつこく連絡が来ませんか？</dt>
+      <dd>AIとのチャットなので、あなたが話しかけない限り一方的な連絡はしません。</dd>
+      <dt>年収交渉って本当にAIがやるんですか？</dt>
+      <dd>はい。AIアバターが企業の採用担当と直接やり取りし、あなたの希望条件を伝えます。</dd>
+    </dl>
+  </div>
 </section>
 
 <footer>© NexusAdvisors Inc. — AVACAREER LAB</footer>
