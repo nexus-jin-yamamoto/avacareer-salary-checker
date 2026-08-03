@@ -56,6 +56,18 @@
   .cta-btn{display:inline-block;background:var(--gold);color:#4a3305;text-decoration:none;font-weight:900;font-size:16.5px;padding:19px 48px;border-radius:99px;box-shadow:0 14px 32px rgba(242,179,42,.4);transition:.2s}
   .cta-btn:hover{transform:translateY(-3px)}
   .cta small{display:block;margin-top:14px;color:#9ab0c9;font-size:12px}
+  .upload-area{border:2px dashed #c5d8f0;border-radius:14px;padding:40px 24px;text-align:center;cursor:pointer;transition:.2s;background:#f8fbff}
+  .upload-area:hover,.upload-area.dragover{border-color:var(--blue);background:#eef5fd}
+  .upload-icon{font-size:36px;margin-bottom:12px}
+  .upload-text{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px}
+  .upload-or{font-size:12px;color:var(--mut);margin-bottom:12px}
+  .upload-btn{display:inline-block;background:var(--blue);color:#fff;font-size:13px;font-weight:700;padding:10px 24px;border-radius:8px;cursor:pointer;transition:.2s}
+  .upload-btn:hover{background:#0f5bc0}
+  .upload-formats{font-size:11.5px;color:#9ab0c9;margin-top:14px}
+  .file-info{display:flex;align-items:center;justify-content:space-between;background:#eef5fd;border:1px solid #d7e6f8;border-radius:10px;padding:14px 18px;margin-bottom:14px}
+  .file-name{font-size:14px;font-weight:700;color:var(--navy)}
+  .file-remove{color:var(--mut);cursor:pointer;font-size:16px;padding:4px 8px}
+  .file-remove:hover{color:var(--blue)}
   footer{text-align:center;padding:28px;color:#9ab0c9;font-size:11.5px}
   @media(max-width:900px){.hero{grid-template-columns:1fr}.rcard{grid-template-columns:1fr;gap:30px}}
 </style>
@@ -79,48 +91,69 @@
   </div>
   <div class="panel">
     <div class="tabs">
-      <div class="tab on">かんたん入力</div>
-      <div class="tab">履歴書をアップロード</div>
+      <div class="tab on" onclick="switchTab(0)">かんたん入力</div>
+      <div class="tab" onclick="switchTab(1)">履歴書をアップロード</div>
     </div>
-    <div class="row2">
-      <div class="field"><label>現在の職種</label><select>
-        <option value="" disabled selected>選択してください</option>
-        <option>法人営業</option>
-        <option>個人営業</option>
-        <option>インサイドセールス</option>
-        <option>マーケティング</option>
-        <option>企画・経営戦略</option>
-        <option>人事・採用</option>
-        <option>経理・財務</option>
-        <option>総務・法務</option>
-        <option>カスタマーサクセス</option>
-        <option>ITエンジニア</option>
-        <option>Webデザイナー</option>
-        <option>プロジェクトマネージャー</option>
-        <option>コンサルタント</option>
-        <option>事務・アシスタント</option>
-        <option>販売・接客</option>
-        <option>物流・SCM</option>
-        <option>製造・生産管理</option>
-        <option>医療・介護</option>
-        <option>その他</option>
-      </select></div>
-      <div class="field"><label>経験年数</label><select>
-        <option value="" disabled selected>選択してください</option>
-        <option>1年未満</option>
-        <option>1〜2年</option>
-        <option>3〜5年</option>
-        <option>6〜9年</option>
-        <option>10〜14年</option>
-        <option>15〜19年</option>
-        <option>20年以上</option>
-      </select></div>
+    <div id="tab-input">
+      <div class="row2">
+        <div class="field"><label>現在の職種</label><select>
+          <option value="" disabled selected>選択してください</option>
+          <option>法人営業</option>
+          <option>個人営業</option>
+          <option>インサイドセールス</option>
+          <option>マーケティング</option>
+          <option>企画・経営戦略</option>
+          <option>人事・採用</option>
+          <option>経理・財務</option>
+          <option>総務・法務</option>
+          <option>カスタマーサクセス</option>
+          <option>ITエンジニア</option>
+          <option>Webデザイナー</option>
+          <option>プロジェクトマネージャー</option>
+          <option>コンサルタント</option>
+          <option>事務・アシスタント</option>
+          <option>販売・接客</option>
+          <option>物流・SCM</option>
+          <option>製造・生産管理</option>
+          <option>医療・介護</option>
+          <option>その他</option>
+        </select></div>
+        <div class="field"><label>経験年数</label><select>
+          <option value="" disabled selected>選択してください</option>
+          <option>1年未満</option>
+          <option>1〜2年</option>
+          <option>3〜5年</option>
+          <option>6〜9年</option>
+          <option>10〜14年</option>
+          <option>15〜19年</option>
+          <option>20年以上</option>
+        </select></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>現在の年収</label><input placeholder="例）420万円"></div>
+        <div class="field"><label>年齢</label><input placeholder="例）27"></div>
+      </div>
+      <button class="go" onclick="location.href='app.html'">理論年収を診断する →</button>
     </div>
-    <div class="row2">
-      <div class="field"><label>現在の年収</label><input placeholder="例）420万円"></div>
-      <div class="field"><label>年齢</label><input placeholder="例）27"></div>
+    <div id="tab-upload" style="display:none">
+      <div class="upload-area" id="dropzone">
+        <div class="upload-icon">📄</div>
+        <p class="upload-text">履歴書・職務経歴書をドラッグ＆ドロップ</p>
+        <p class="upload-or">または</p>
+        <label class="upload-btn">
+          ファイルを選択
+          <input type="file" accept=".pdf,.doc,.docx" hidden id="file-input">
+        </label>
+        <p class="upload-formats">PDF / Word（.doc, .docx）対応・最大10MB</p>
+      </div>
+      <div id="file-selected" style="display:none">
+        <div class="file-info">
+          <span class="file-name" id="file-name"></span>
+          <span class="file-remove" onclick="removeFile()">✕</span>
+        </div>
+        <button class="go" onclick="location.href='app.html'">この履歴書で年収を診断する →</button>
+      </div>
     </div>
-    <button class="go" onclick="location.href='app.html'">理論年収を診断する →</button>
     <small>入力情報が企業に公開されることはありません</small>
   </div>
 </section>
@@ -148,5 +181,30 @@
 </section>
 
 <footer>© NexusAdvisors Inc. — AVACAREER LAB</footer>
+<script>
+function switchTab(idx){
+  const tabs=document.querySelectorAll('.tab');
+  tabs.forEach((t,i)=>t.classList.toggle('on',i===idx));
+  document.getElementById('tab-input').style.display=idx===0?'block':'none';
+  document.getElementById('tab-upload').style.display=idx===1?'block':'none';
+}
+const dropzone=document.getElementById('dropzone');
+const fileInput=document.getElementById('file-input');
+dropzone.addEventListener('click',()=>fileInput.click());
+dropzone.addEventListener('dragover',e=>{e.preventDefault();dropzone.classList.add('dragover')});
+dropzone.addEventListener('dragleave',()=>dropzone.classList.remove('dragover'));
+dropzone.addEventListener('drop',e=>{e.preventDefault();dropzone.classList.remove('dragover');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0])});
+fileInput.addEventListener('change',()=>{if(fileInput.files.length)handleFile(fileInput.files[0])});
+function handleFile(f){
+  document.getElementById('file-name').textContent=f.name;
+  dropzone.style.display='none';
+  document.getElementById('file-selected').style.display='block';
+}
+function removeFile(){
+  fileInput.value='';
+  dropzone.style.display='block';
+  document.getElementById('file-selected').style.display='none';
+}
+</script>
 </body>
 </html>
