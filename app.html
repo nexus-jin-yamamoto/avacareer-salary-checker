@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-XXXXXXXXXX');
+gtag('set', { tool_name: 'salary-checker' });
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>診断する｜想定年収チェッカー</title>
@@ -110,6 +119,29 @@ function calc(){
     let c=0;const t=setInterval(()=>{c+=Math.ceil(est/50);if(c>=est){c=est;clearInterval(t)}document.getElementById('val').textContent=c},30);
   },1800);
 }
+</script>
+<!-- LINE CTA tracking + UTM forwarding -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('a[href*="lin.ee"]').forEach(function(el){
+    el.addEventListener('click', function(){
+      gtag('event', 'line_cta_click', {
+        tool_name: 'salary-checker',
+        event_category: 'conversion',
+        event_label: el.textContent.trim()
+      });
+    });
+  });
+  var params = new URLSearchParams(window.location.search);
+  var utms = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+  var q = [];
+  utms.forEach(function(k){ if(params.get(k)) q.push(k+'='+encodeURIComponent(params.get(k))); });
+  if(q.length){
+    document.querySelectorAll('a[href*="lin.ee"]').forEach(function(el){
+      el.href += (el.href.includes('?') ? '&' : '?') + q.join('&');
+    });
+  }
+});
 </script>
 </body>
 </html>
